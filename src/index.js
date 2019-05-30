@@ -1,13 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-function HelloMessage(props) {
-    return <h1>Hello {props.name}!</h1>;
-}
- 
-const element = <HelloMessage name="Runoob"/>;
+import Count from './pages/Count.jsx';
  
 ReactDOM.render(
-    element,
+    <Count/>,
     document.getElementById('app')
 );
