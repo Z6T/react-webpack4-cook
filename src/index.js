@@ -1,18 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from 'react-router-dom'
+import { AppContainer } from "react-hot-loader";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./router";
+import {add} from './math.js'
 
-import PrimaryLayout from './router'
+add(66)
+/*初始化*/
+renderWithHotReload(Router);
 
+/*热更新*/
+if (module.hot) {
+  module.hot.accept("./router/index.js", () => {
+    const Router = require("./router/index.js").default;
+    renderWithHotReload(Router);
+  });
+}
 
-
-const HomePage =() => <div>Home Page</div>
-const UsersPage = () => <div>Users Page</div>
-
-const App = () => (
-  <BrowserRouter>
-    <PrimaryLayout />
-  </BrowserRouter>
-)
-
-ReactDOM.render(<App />, document.getElementById('app'))
+function renderWithHotReload(Router) {
+  ReactDOM.render(
+    <AppContainer>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </AppContainer>,
+    document.getElementById("app")
+  );
+}
