@@ -2,7 +2,8 @@ const path = require("path");
 const merge = require('webpack-merge')
 const commonConfig = require('./webpack.base.config.js')
 const webpack = require("webpack");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const PurifyCSS = require('purifycss-webpack')
+const glob = require('glob-all')
 
 module.exports = merge(commonConfig, {
     mode: "development",
@@ -22,12 +23,20 @@ module.exports = merge(commonConfig, {
                 VUEP_BASE_URL: '/'
             }
         }),
+        new PurifyCSS({
+            paths: glob.sync([
+                // 要做 CSS Tree Shaking 的路径文件
+                path.resolve(__dirname, '..', 'src/*.html'),
+                path.resolve(__dirname, '..', 'src/*.js'),
+                path.resolve(__dirname, '..', 'src/**/*.jsx'),
+            ])
+        })
     ],
     devServer: {
         hot: true,
         contentBase: path.resolve(__dirname, "../dist"),
         host: "localhost", // 可以使用手机访问
-        port: 8080,
+        port: 3000,
         historyApiFallback: true, //  该选项的作用所有的404都连接到index.html
         proxy: {
             // 代理到后端的服务地址

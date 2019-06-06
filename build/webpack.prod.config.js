@@ -1,8 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const PurifyCSS = require('purifycss-webpack')
+const glob = require('glob-all')
 
 module.exports = {
     mode: "production",
@@ -33,5 +32,13 @@ module.exports = {
         },
     },
     plugins: [
+        // 清除无用 css---生产环境
+        new PurifyCSS({
+            paths: glob.sync([
+                // 要做 CSS Tree Shaking 的路径文件
+                path.resolve(__dirname, '..', 'src/*.html'), // 请注意，我们同样需要对 html 文件进行 tree shaking
+                path.resolve(__dirname, '..', 'src/*.js')
+            ])
+        })
     ]
 };

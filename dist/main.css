@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'busong';
+  src: url(fonts/本墨钧宋-e2b14.min.ttf);
+}
+
+.home {
+  height: 80vh;
+  -webkit-transform: rotate(3deg);
+  transform: rotate(3deg);
+  background: url(images/46d789be0ea92774ba6f49b61164cd13.jpg) no-repeat;
+}
+
+.home .h-txt {
+  margin-top: 100px;
+  font-family: 'busong';
+  color: red;
+}

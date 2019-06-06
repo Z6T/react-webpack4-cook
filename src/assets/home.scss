@@ -12,3 +12,8 @@
         color: red;
     }
 }
+
+// 下边这个会被CSS tree shaking 过滤掉哦，是不是很神奇
+.mm{
+    background: red;
+}
