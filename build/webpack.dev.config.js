@@ -4,6 +4,8 @@ const commonConfig = require('./webpack.base.config.js')
 const webpack = require("webpack");
 const PurifyCSS = require('purifycss-webpack')
 const glob = require('glob-all')
+const WorkboxPlugin = require('workbox-webpack-plugin') // 引入 PWA 插件
+
 
 module.exports = merge(commonConfig, {
     mode: "development",
@@ -30,6 +32,10 @@ module.exports = merge(commonConfig, {
                 path.resolve(__dirname, '..', 'src/*.js'),
                 path.resolve(__dirname, '..', 'src/**/*.jsx'),
             ])
+        }),
+        new WorkboxPlugin.GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true
         })
     ],
     devServer: {
