@@ -18,7 +18,7 @@ export default class Count extends Component {
         return (
             <div>
                 当前count值：{this.state.count}<br/>
-                <button onClick={() => this.handleClick()}>增加1</button>
+                <button style={{border:'1px dashed blue'}} onClick={() => this.handleClick()}>增加1</button>
             </div>
         )
     }

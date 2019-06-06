@@ -3,10 +3,11 @@
     src:url('./本墨钧宋.ttf');
 }
 .home{
-    transform: rotate(10deg);
+    height:80vh;
+    transform: rotate(3deg);
     background: url('./timg.jpg') no-repeat;
     .h-txt{
-        margin-top: 200px;
+        margin-top: 100px;
         font-family: 'busong';
         color: red;
     }
