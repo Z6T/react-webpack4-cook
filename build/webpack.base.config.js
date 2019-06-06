@@ -4,10 +4,12 @@ const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')
+const HappyPack = require('happypack');
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 module.exports = {
-    entry: ["react-hot-loader/patch", "./src/index.js"],
+    entry: ["./src/index.js"],
     output: {
         // 输出目录
         path: path.resolve(__dirname, "../dist")
@@ -28,11 +30,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: "babel-loader",
-                        options: {
-                            // 指定babel预处理转义
-                            presets: ["@babel/preset-env", "@babel/preset-react"]
-                        }
+                        loader: "happypack/loader?id=happyBabel"
                     }
                 ]
             },
@@ -81,16 +79,23 @@ module.exports = {
             }
         }),
         new webpack.ProvidePlugin({ $: 'jquery' }),
+        // happypack
+        new HappyPack({
+            //用id来标识 happypack处理那里类文件
+            id: 'happyBabel',
+            //如何处理  用法和loader 的配置一样
+            loaders: [{
+                loader: 'babel-loader?cacheDirectory=true',
+            }],
+            //共享进程池threadPool: HappyThreadPool 代表共享进程池，即多个 HappyPack 实例都使用同一个共享进程池中的子进程去处理任务，以防止资源占用过多。
+            threadPool: happyThreadPool,
+            //允许 HappyPack 输出日志
+            verbose: true,
+        }),
         // css单独提取
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css"
-        }),
-        new AddAssetHtmlWebpackPlugin({
-            filepath: path.resolve(__dirname, '../dll/jquery.dll.js') // 对应的 dll 文件路径
-        }),
-        new webpack.DllReferencePlugin({
-            manifest: path.resolve(__dirname, '..', 'dll/jquery-manifest.json')
         })
     ],
     performance: false // 关闭性能提示

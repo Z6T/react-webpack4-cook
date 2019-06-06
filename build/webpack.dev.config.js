@@ -2,13 +2,10 @@ const path = require("path");
 const merge = require('webpack-merge')
 const commonConfig = require('./webpack.base.config.js')
 const webpack = require("webpack");
-const PurifyCSS = require('purifycss-webpack')
-const glob = require('glob-all')
-const WorkboxPlugin = require('workbox-webpack-plugin') // 引入 PWA 插件
-
 
 module.exports = merge(commonConfig, {
     mode: "development",
+    entry: ["react-hot-loader/patch"],
     devtool: 'cheap-module-eval-soure-map',
     output: {
         // 输出目录
@@ -24,18 +21,6 @@ module.exports = merge(commonConfig, {
             'process.env': {
                 VUEP_BASE_URL: '/'
             }
-        }),
-        new PurifyCSS({
-            paths: glob.sync([
-                // 要做 CSS Tree Shaking 的路径文件
-                path.resolve(__dirname, '..', 'src/*.html'),
-                path.resolve(__dirname, '..', 'src/*.js'),
-                path.resolve(__dirname, '..', 'src/**/*.jsx'),
-            ])
-        }),
-        new WorkboxPlugin.GenerateSW({
-            clientsClaim: true,
-            skipWaiting: true
         })
     ],
     devServer: {
