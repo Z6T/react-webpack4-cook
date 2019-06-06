@@ -18,7 +18,8 @@
     "url-loader": "^1.1.2",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
-    "webpack-dev-server": "^3.4.1"
+    "webpack-dev-server": "^3.4.1",
+    "webpack-merge": "^4.2.1"
   },
   "dependencies": {
     "react": "^16.8.6",
@@ -28,6 +29,7 @@
     "redux": "^4.0.1"
   },
   "scripts": {
-    "dev": "webpack-dev-server --config ./build/webpack.base.config.js --color --progress"
+    "dev": "webpack-dev-server --config ./build/webpack.dev.config.js --color --progress",
+    "test": "webpack-dev-server --config webpack.base.config.test.js --color --progress"
   }
 }

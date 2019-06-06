@@ -62,6 +62,20 @@ module.exports = {
             limit: 10 * 1024
           }
         }
+      },
+      {
+        test: /\.(eot|woff2?|ttf|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              name: '[name]-[hash:5].min.[ext]',
+              limit: 5000, // fonts file size <= 5KB, use 'base64'; else, output svg file
+              publicPath: 'fonts/',
+              outputPath: 'fonts/'
+            }
+          }
+        ]
       }
     ]
   },
