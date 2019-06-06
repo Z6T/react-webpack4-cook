@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./router";
+import $ from 'jquery';
 import { add } from './math.js'
 
 add(66)
@@ -16,7 +17,9 @@ if (module.hot) {
         renderWithHotReload(Router);
     });
 }
-
+$(function () {
+    console.log('在下张不怂，正在测试jquery');
+})
 function renderWithHotReload(Router) {
     ReactDOM.render(
         <AppContainer>

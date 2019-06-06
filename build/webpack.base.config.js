@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')
 
 module.exports = {
     entry: ["react-hot-loader/patch", "./src/index.js"],
@@ -85,6 +85,12 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css"
+        }),
+        new AddAssetHtmlWebpackPlugin({
+            filepath: path.resolve(__dirname, '../dll/jquery.dll.js') // 对应的 dll 文件路径
+        }),
+        new webpack.DllReferencePlugin({
+            manifest: path.resolve(__dirname, '..', 'dll/jquery-manifest.json')
         })
     ],
     performance: false // 关闭性能提示
