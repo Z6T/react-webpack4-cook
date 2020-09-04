@@ -13,7 +13,7 @@
     "happypack": "^5.0.1",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.7.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^3.0.0",
     "purify-css": "^1.2.5",
