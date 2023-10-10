@@ -35,7 +35,7 @@
     "react-redux": "^7.0.3",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.1",
-    "redux": "^4.0.1"
+    "redux": "^4.2.1"
   },
   "scripts": {
     "dev": "webpack-dev-server --config ./build/webpack.dev.config.js --color --progress",
